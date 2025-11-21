@@ -182,7 +182,14 @@
             color: var(--primary-color);
         }
 
-        .copy-btn {
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .copy-btn, .save-btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
@@ -193,11 +200,19 @@
             font-weight: 600;
         }
 
+        .save-btn {
+            background-color: #28a745;
+        }
+
         .copy-btn:hover {
             background-color: var(--secondary-color);
         }
 
-        .copy-btn i {
+        .save-btn:hover {
+            background-color: #218838;
+        }
+
+        .copy-btn i, .save-btn i {
             margin-right: 5px;
         }
 
@@ -292,6 +307,10 @@
                 height: 50px;
                 font-size: 20px;
             }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -335,9 +354,14 @@
                     <div class="payment-info">
                         <p>Bank Account Number:</p>
                         <div class="payment-number">1368041463</div>
-                        <button class="copy-btn" onclick="copyToClipboard('1368041463')">
-                            <i class="fas fa-copy"></i> Copy Number
-                        </button>
+                        <div class="action-buttons">
+                            <button class="copy-btn" onclick="copyToClipboard('1368041463')">
+                                <i class="fas fa-copy"></i> Copy Number
+                            </button>
+                            <button class="save-btn" onclick="downloadImage('https://raw.githubusercontent.com/Milay123/Website-/refs/heads/main/kbank.jpeg', 'kbank.jpg')">
+                                <i class="fas fa-download"></i> Save Image
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -346,6 +370,11 @@
                     <img src="https://raw.githubusercontent.com/Milay123/Website-/refs/heads/main/kbankQr.jpeg" alt="Kbank QR Code">
                     <h3>Kbank QR Code</h3>
                     <p>Scan this QR code to make payment</p>
+                    <div class="action-buttons" style="margin-top: 20px;">
+                        <button class="save-btn" onclick="downloadImage('https://raw.githubusercontent.com/Milay123/Website-/refs/heads/main/kbankQr.jpeg', 'kbank-qr.jpg')">
+                            <i class="fas fa-download"></i> Save QR Code
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Truemoney Payment -->
@@ -355,9 +384,14 @@
                     <div class="payment-info">
                         <p>Truemoney Number:</p>
                         <div class="payment-number">0889196341</div>
-                        <button class="copy-btn" onclick="copyToClipboard('0889196341')">
-                            <i class="fas fa-copy"></i> Copy Number
-                        </button>
+                        <div class="action-buttons">
+                            <button class="copy-btn" onclick="copyToClipboard('0889196341')">
+                                <i class="fas fa-copy"></i> Copy Number
+                            </button>
+                            <button class="save-btn" onclick="downloadImage('https://raw.githubusercontent.com/Milay123/Website-/refs/heads/main/truemoney.jpg', 'truemoney.jpg')">
+                                <i class="fas fa-download"></i> Save Image
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -436,6 +470,19 @@
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
+        }
+
+        // Download Image Function
+        function downloadImage(url, filename) {
+            // Create a temporary anchor element
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            
+            // Append to the document, trigger click, and remove
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
