@@ -610,7 +610,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p class="footer-text">&copy; MoVPN အားပေးမှုအတွက်ကျေးဇူးတင်ပါသည်🙏🏼.</p>
+            <p class="footer-text">&copy; 2023 MoVPN. All rights reserved.</p>
         </div>
     </footer>
 
@@ -665,17 +665,30 @@
             });
         }
 
-        // Download Image Function
+        // Download Image Function - Fixed version
         function downloadImage(url, filename) {
             // Create a temporary anchor element
             const link = document.createElement('a');
             link.href = url;
             link.download = filename;
+            link.target = '_blank';
+            
+            // Create a custom event to trigger the download
+            const event = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
             
             // Append to the document, trigger click, and remove
             document.body.appendChild(link);
-            link.click();
+            link.dispatchEvent(event);
             document.body.removeChild(link);
+            
+            // Show success message
+            setTimeout(() => {
+                alert('Image download started: ' + filename);
+            }, 500);
         }
     </script>
 </body>
